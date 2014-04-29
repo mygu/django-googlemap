@@ -26,6 +26,6 @@ env/*
 # Eclipse
 .project
 
-.sdist
+.dist
 
 
