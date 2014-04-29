@@ -9,7 +9,7 @@ Detailed documentation is in the "docs" directory.
 Quick start
 -----------
 
-1. Install django-googlemap
+1. Install django-googlemap::
 
     pip install django-googlemap
 
@@ -20,10 +20,20 @@ Quick start
         'googlemap',
     )
 
-3. In your template html
+3. In your template html::
 
     {% load gmap_tags %}
     
-    <!-- <ip_list> is a list of ip addresses  -->
-    {% mark_location <ip_List> %}
+    <!--
+        <ip_list> is a list of ip addresses
+        <width> default is auto
+        <height> default is 400px
+      -->
+    {% ip_on_map <ip_List> <width> <height> %}
+
+4. Settings(optional)::
+
+    # Download maxmind free geo database from http://dev.maxmind.com/geoip/legacy/geolite/
+
+    MAXMIND_CITY_DB_PATH = 'Your data file path'
 
