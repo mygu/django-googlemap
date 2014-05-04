@@ -5,12 +5,14 @@
 <input id="id_lng" name="lng" type="hidden" value="{{ location.lng|default_if_none:125 }}">
 <input id="id_lat" name="lat" type="hidden" value="{{ location.lat|default_if_none:126 }}">
 {% for location in location_list %}
-    <input name="marker" type="hidden" value="{{ location.lng }},{{ location.lat }}">
+    {% if location %}
+        <input name="marker" type="hidden" value="{{ location.lng }},{{ location.lat }}">
+    {% endif %}
 {% endfor %}
 <div id="map_canvas" data-target-id="id_location" class="google-map" style="width: {{ width }};height: {{ height }};"></div>
 
 <script src="//code.jquery.com/jquery-latest.js"></script>
-<script src="{{ STATIC_URL }}js/../../static/js/gmap.js"></script>
+<script src="{{ STATIC_URL }}js/gmap.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en-us"></script>
 
 <script type="text/javascript">

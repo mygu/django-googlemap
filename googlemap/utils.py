@@ -8,8 +8,5 @@ def get_location_by_ip(ip):
     try:
         location = geoip.ipaddress_to_location(ip)
     except Exception as e:
-        location = {
-            'lng': 0,
-            'lat': 0
-        }
+        location = None
     return location

@@ -1,5 +1,8 @@
 include LICENSE
 include README.rst
+recursive-include googlemap/data *
+recursive-include googlemap/ip2geo *
 recursive-include googlemap/static *
 recursive-include googlemap/templates *
+recursive-include googlemap/templatetags *
 recursive-include docs *
