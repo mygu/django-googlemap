@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-googlemap',
-    version='0.1',
+    version='0.2',
     packages=['googlemap'],
     include_package_data=True,
     license='BSD License',

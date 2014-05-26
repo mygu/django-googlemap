@@ -343,10 +343,41 @@ function changeMapSize(offsetWidth, offsetHeight) {
     google.maps.event.trigger(map, "resize");
 }
 
-$("form:first").submit(function () {
-    if ($("#map_search").is(":focus")) {
+$(function(){
+    $("form:first").submit(function () {
+        if ($("#map_search").is(":focus")) {
+            return false;
+        }
+    });
+
+    $("#add_ip_form").submit(function () {
+        var ip_string = $("#ip_string").val();
+        if (ip_string) {
+            $.ajax({
+                url: "/googlemap/get_locations/",
+                type: "POST",
+                dataType: "json",
+                data: {ip_string: ip_string},
+                async: true,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", $.cookie("csrftoken"));
+                },
+                success: function (data) {
+                    if (data.status == "success") {
+                        var locations = data.data;
+                        $.each(locations, function (i, location) {
+                            marker = new google.maps.Marker({
+                                icon: "/static/img/marker_green.png",
+                                position: location,
+                                map: map
+                            });
+                        });
+                    }
+                }
+            });
+        }
         return false;
-    }
+    });
 });
 
 /*-------------------------------google map function end-------------------------------*/

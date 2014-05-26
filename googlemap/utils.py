@@ -1,3 +1,6 @@
+import json
+
+from django.http import HttpResponse
 from .models import geoip
 
 
@@ -10,3 +13,12 @@ def get_location_by_ip(ip):
     except Exception as e:
         location = None
     return location
+
+
+def json_result(request, data):
+    response_data = json.dumps(data)
+    if 'application/json' in request.META.get('HTTP_ACCEPT_ENCODING', None):
+        mimetype = 'application/json'
+    else:
+        mimetype = 'text/plain'
+    return HttpResponse(response_data, mimetype=mimetype)

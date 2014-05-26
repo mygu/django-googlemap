@@ -20,6 +20,13 @@ Quick start
         'googlemap',
     )
 
+3. Add urls.py::
+
+    urlpatterns = patterns('',
+        ...
+        url(r'^googlemap/', include('googlemap.urls')),
+    )
+
 3. In your template html::
 
     {% load gmap_tags %}
@@ -28,8 +35,9 @@ Quick start
         <ip_list> is a list of ip addresses
         <width> default is auto
         <height> default is 400px
+        <show_input> default if false
       -->
-    {% ip_on_map <ip_List> <width> <height> %}
+    {% ip_on_map <ip_List> <width> <height> True %}
 
 4. Settings(optional)::
 

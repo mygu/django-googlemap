@@ -1,19 +1,31 @@
 {% load i18n %}
 
-<input id="is_resize" type="hidden" value="{{ is_resize }}">
+<input id="is_resize" type="hidden" value="{{ is_resize }}" xmlns="http://www.w3.org/1999/html">
 <input id="id_address" name="address" type="hidden" value="">
-<input id="id_lng" name="lng" type="hidden" value="{{ location.lng|default_if_none:125 }}">
-<input id="id_lat" name="lat" type="hidden" value="{{ location.lat|default_if_none:126 }}">
+<input id="id_lng" name="lng" type="hidden" value="{{ location.lng|default_if_none:0 }}">
+<input id="id_lat" name="lat" type="hidden" value="{{ location.lat|default_if_none:0 }}">
 {% for location in location_list %}
-    {% if location %}
-        <input name="marker" type="hidden" value="{{ location.lng }},{{ location.lat }}">
-    {% endif %}
+{% if location %}
+<input name="marker" type="hidden" value="{{ location.lng }},{{ location.lat }}">
+{% endif %}
 {% endfor %}
-<div id="map_canvas" data-target-id="id_location" class="google-map" style="width: {{ width }};height: {{ height }};"></div>
+<div id="map_canvas" data-target-id="id_location" class="google-map"
+     style="width: {{ width }};height: {{ height }};">
+</div>
+{% if show_input %}
+<div>
+    <form class="form-horizontal" role="form" id="add_ip_form">
+        <input type="text" id="ip_string" placeholder="Paste in ip addresses seperated by a comma and press 'Go'"
+               style="width: 500px;">
+        <input type="submit" id="add_ip_btn" value="Go">
+    </form>
+</div>
+{% endif %}
+
 
 <script src="//code.jquery.com/jquery-latest.js"></script>
 <script src="{{ STATIC_URL }}js/gmap.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en-us"></script>
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en-us"></script>
 
 <script type="text/javascript">
     $(function () {
