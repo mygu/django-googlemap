@@ -2,8 +2,8 @@
 
 <input id="is_resize" type="hidden" value="{{ is_resize }}">
 <input id="id_address" name="address" type="hidden" value="">
-<input id="id_lng" name="lng" type="hidden" value="{{ location.lng|default_if_none:125 }}">
-<input id="id_lat" name="lat" type="hidden" value="{{ location.lat|default_if_none:126 }}">
+<input id="id_lng" name="lng" type="hidden" value="{{ location.lng|default_if_none:0 }}">
+<input id="id_lat" name="lat" type="hidden" value="{{ location.lat|default_if_none:0 }}">
 {% for location in location_list %}
     {% if location %}
         <input name="marker" type="hidden" value="{{ location.lng }},{{ location.lat }}">
