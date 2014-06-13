@@ -19,7 +19,7 @@ def ip_on_map(context, ip_arg, width=None, height=400, show_input=False, is_offs
         'location_list': location_list,
         'width': '%d%s' % (width, 'px') if width else '100%',
         'height': '%d%s' % (height, 'px'),
-        'is_resize': 'false',
+        'is_resize': False,
         'show_input': show_input,
         'is_offset': is_offset,
     })

@@ -24,11 +24,9 @@
 {% endif %}
 {% if is_offset %}
 <div>
-    <form class="form-horizontal" role="form" id="set_offset_form">
-        <input type="text" id="id_offset" placeholder="Please enter the offset and press 'Go'"
-               style="width: 500px;">
-        <input type="submit" id="btn_offset" value="Go">
-    </form>
+    <input type="text" id="id_offset" placeholder="Please enter the offset and press 'Go'"
+           style="width: 500px;">
+    <input type="button" id="btn_offset" value="Go">
 </div>
 {% endif %}
 
@@ -39,8 +37,8 @@
 
 <script type="text/javascript">
     $(function () {
-        var is_resize = $("#is_resize").val() == 'true' ? true : false;
-        var is_offset = $("#is_offset").val() == 'true' ? true : false;
+        var is_resize = $("#is_resize").val() == 'True' ? true : false;
+        var is_offset = $("#is_offset").val() == 'True' ? true : false;
         initializeMap("map_canvas", "id_address", "id_lng", "id_lat", "marker", is_resize, is_offset);
     });
 </script>

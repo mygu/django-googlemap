@@ -4,6 +4,7 @@ var map;
 var marker;
 var infowindow;
 var geocoder;
+var circle_markers = [];
 var markers = [];
 var id_address;
 var id_lng;
@@ -126,7 +127,7 @@ function initMarker(address_tid, lng_tid, lat_tid) {
             position: latlng,
             map: map
         });
-        markers.push(marker);
+        circle_markers.push(marker);
         if (!address) {
             getAddress(new google.maps.LatLng(lat, lng), address);
         } else {
@@ -141,7 +142,7 @@ function initMarker(address_tid, lng_tid, lat_tid) {
                     position: results[0].geometry.location,
                     map: map
                 });
-                markers.push(marker);
+                circle_markers.push(marker);
                 attachSecretMessage(marker, location, address);
             } else {
                 //alert("Unable to resolve the address of the reasons: " + status);
@@ -164,6 +165,8 @@ function addMarker(marker_name) {
                 link: link
                 //icon: "http://maps.google.com/mapfiles/marker_green.png"
             });
+
+            markers.push(marker);
 
 //            google.maps.event.addListener(marker, 'click', function (event) {
 //                clearOverlays(marker);
@@ -188,13 +191,13 @@ function addMarker(marker_name) {
 
 function placeMarker(location) {
     //Clear all marker
-    clearOverlays(markers, infowindow);
+    clearOverlays(circle_markers, infowindow);
     marker = new google.maps.Marker({
         icon: "/static/img/marker_circle.png",
         position: location,
         map: map
     });
-    markers.push(marker);
+    circle_markers.push(marker);
     //Get address by location
     getAddress(location);
 }
@@ -272,13 +275,15 @@ function initResize() {
 }
 
 function initOffset() {
-    $("#set_offset_form").submit(function(){
+    $("#btn_offset").on("click", function(){
         var offset = $("#id_offset").val();
         if(offset){
             $.each(markers, function(key, item){
-                var lat = parseFloat(item.getPosition().lat);
-                var lng = parseFloat(item.getPosition().lng);
+                var lat = parseFloat(item.getPosition().lat());
+                var lng = parseFloat(item.getPosition().lng());
                 var rn = random_num(-offset, offset);
+                lat = lat + rn;
+                lng = lng + rn;
                 item.setPosition(new google.maps.LatLng(lat, lng));
             });
         }
@@ -410,6 +415,7 @@ $(function(){
                                 position: location,
                                 map: map
                             });
+                            markers.push(marker);
                         });
                     }
                 }
