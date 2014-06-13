@@ -13,7 +13,7 @@ var resizable = false;
 var mouseX, mouseY, drawnX, drawnY, diffX, diffY;
 var has_typecontrol = false;
 
-function initializeMap(map_tid, address_tid, lng_tid, lat_tid, marker_name, is_resize) {
+function initializeMap(map_tid, address_tid, lng_tid, lat_tid, marker_name, is_resize, is_offset) {
     var latlng = new google.maps.LatLng(0, 0);
     var myOptions = {
         zoom: 2,
@@ -38,6 +38,7 @@ function initializeMap(map_tid, address_tid, lng_tid, lat_tid, marker_name, is_r
         initMarker(address_tid, lng_tid, lat_tid);
         initSearch();
         if(is_resize) initResize();
+        if(is_offset) initOffset();
     });
 }
 
@@ -269,6 +270,44 @@ function initResize() {
         watchMouse();
     });
 }
+
+function initOffset() {
+    $("#set_offset_form").submit(function(){
+        var offset = $("#id_offset").val();
+        if(offset){
+            $.each(markers, function(key, item){
+                var lat = parseFloat(item.getPosition().lat);
+                var lng = parseFloat(item.getPosition().lng);
+                var rn = random_num(-offset, offset);
+                item.setPosition(new google.maps.LatLng(lat, lng));
+            });
+        }
+    });
+}
+
+function random_num(min, max) {
+    return parseInt(Math.random() * (max - min + 1) + min);
+}
+
+/*function find_num(array, sum) {
+    if (array && array.length > 0) {
+        var begin = 0;
+        var end = array.length - 1;
+
+        while (begin < end) {
+            var current_sum = Math.pow(array[begin], 2) + Math.pow(array[end], 2);
+            if (current_sum < sum) {
+                begin++;
+            } else if (current_sum > sum) {
+                end--;
+            } else {
+                console.log(array[begin] + "   " + array[end]);
+                begin++;
+                end--;
+            }
+        }
+    }
+}*/
 
 function cleanTerms(delay){
     var node = map.getDiv();

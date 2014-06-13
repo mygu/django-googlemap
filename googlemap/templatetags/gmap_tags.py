@@ -7,7 +7,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('gmap/ip_on_map.html', takes_context=True)
-def ip_on_map(context, ip_arg, width=None, height=400, show_input=False):
+def ip_on_map(context, ip_arg, width=None, height=400, show_input=False, is_offset=False):
     if isinstance(ip_arg, list):
         ip_list = ip_arg
     elif isinstance(ip_arg, SafeText):
@@ -21,5 +21,6 @@ def ip_on_map(context, ip_arg, width=None, height=400, show_input=False):
         'height': '%d%s' % (height, 'px'),
         'is_resize': 'false',
         'show_input': show_input,
+        'is_offset': is_offset,
     })
     return context
