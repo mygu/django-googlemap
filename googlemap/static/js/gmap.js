@@ -219,18 +219,24 @@ function initResize() {
     });
 }
 
+var origLocations;
 
 function initOffset() {
     $("#btn_offset").on("click", function(){
         var offset = $("#id_offset").val();
-        if(offset){
+        if(!origLocations){
+            origLocations = [];
             $.each(markers, function(key, item){
-                var lat = parseFloat(item.getPosition().lat());
-                var lng = parseFloat(item.getPosition().lng());
-                var rn = random_num(offset);
-                lat = lat + random_num(offset);
-                lng = lng + random_num(offset);
-                item.setPosition(new google.maps.LatLng(lat, lng));
+                origLocations.push({marker:item,lng:parseFloat(item.getPosition().lng()),lat:parseFloat(item.getPosition().lat()) });
+            });
+        }
+        if(offset){
+            var lat;
+            var lng;
+            $.each(origLocations, function(key, item){
+                lat = item.lat + random_num(offset);;
+                lng = item.lng + random_num(offset);
+                item.marker.setPosition(new google.maps.LatLng(lat, lng));
             });
         }
     });
