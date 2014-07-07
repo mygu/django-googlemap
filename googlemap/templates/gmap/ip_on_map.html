@@ -14,18 +14,19 @@
      style="width: {{ width }};height: {{ height }};">
 </div>
 {% if show_input %}
+
 <div>
     <form class="form-horizontal" role="form" id="add_ip_form">
-        <input type="text" id="ip_string" placeholder="Paste in ip addresses seperated by a comma and press 'Go'"
-               style="width: 500px;">
+        <input type="text" id="ip_string" placeholder="Paste in ip addresses (eg column from excel/comma/space seperated) and press 'Go'"
+               style="width: 800px;">
         <input type="submit" id="add_ip_btn" value="Go">
     </form>
 </div>
 {% endif %}
 {% if is_offset %}
 <div>
-    <input type="text" id="id_offset" placeholder="Please enter the offset and press 'Go'"
-           style="width: 500px;">
+    <input type="text" id="id_offset" placeholder="Please enter a jitter (eg .1) and press 'Go'"
+           style="width: 400px;">
     <input type="button" id="btn_offset" value="Go">
 </div>
 {% endif %}
